@@ -1,23 +1,23 @@
 import react from 'react';
 import React from 'react';
 
-function GuessInput() {
+function GuessInput({guesses, setGuesses}) {
   const [guess, setGuess] = react.useState("");
 
   const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(guess);
+      const nextGuesses = [...guesses];
+      nextGuesses.push(guess);
+      setGuesses(nextGuesses);
       setGuess('');
   }
 
   const handleChange = (event) => {
-    event.stopPropagation();
     event.target.setCustomValidity('')
     setGuess(event.target.value.toUpperCase())
   }
 
   const handleInvalid = (event) => {
-    event.stopPropagation();
     const value = event.target.value;
     if (!value) {
       event.target.setCustomValidity('Please enter a guess.');
@@ -26,11 +26,6 @@ function GuessInput() {
     } else {
       event.target.setCustomValidity('Your guess must consist only of letters.')
     }
-  }
-
-  const handleInput = (event) => {
-        event.stopPropagation();
-        event.target.setCustomValidity('')
   }
 
   return (
@@ -47,7 +42,7 @@ function GuessInput() {
       required
       pattern='[A-Za-z]{5}'
       onInvalid={handleInvalid}
-      onInput={handleInput}
+      onInput={handleInvalid}
     />
   </form>);
 }
