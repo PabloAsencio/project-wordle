@@ -1,16 +1,8 @@
 import react from 'react';
 import React from 'react';
 
-function GuessInput({guesses, setGuesses}) {
+function GuessInput({handleSubmit}) {
   const [guess, setGuess] = react.useState("");
-
-  const handleSubmit = (event) => {
-      event.preventDefault();
-      const nextGuesses = [...guesses];
-      nextGuesses.push(guess);
-      setGuesses(nextGuesses);
-      setGuess('');
-  }
 
   const handleChange = (event) => {
     event.target.setCustomValidity('')
@@ -31,7 +23,11 @@ function GuessInput({guesses, setGuesses}) {
   return (
   <form 
     className='guess-input-wrapper'
-    onSubmit={handleSubmit}
+    onSubmit={(event) => {
+      event.preventDefault();
+      handleSubmit(guess);
+      setGuess('');
+    }}
   >
     <label htmlFor='guess-input'>Enter guess:</label>
     <input 
