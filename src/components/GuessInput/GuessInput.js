@@ -1,7 +1,7 @@
 import react from 'react';
 import React from 'react';
 
-function GuessInput({handleSubmit}) {
+function GuessInput({handleSubmit, gameOver}) {
   const [guess, setGuess] = react.useState("");
 
   const handleChange = (event) => {
@@ -39,6 +39,7 @@ function GuessInput({handleSubmit}) {
       pattern='[A-Za-z]{5}'
       onInvalid={handleInvalid}
       onInput={handleInvalid}
+      disabled={gameOver}
     />
   </form>);
 }
